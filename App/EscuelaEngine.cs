@@ -5,7 +5,7 @@ using CoreEscuela.Entities;
 
 namespace CoreEscuela
 {
-    public class EscuelaEngine
+    public sealed class EscuelaEngine
     {
         public Escuela Escuela { get; set; }
 
@@ -25,17 +25,24 @@ namespace CoreEscuela
         {
             foreach (var curso in Escuela.Cursos)
             {
-                int numeroEvaluacion = 1;
-                var listaEvaluaciones = from asignatura in curso.Asignaturas
-                                        from alumno in curso.Alumnos
-                                        select new Evaluacion()
-                                        {
-                                            Nombre = $"{asignatura.Nombre}_Evaluacion_{numeroEvaluacion++}",
-                                            Asignatura = asignatura,
-                                            Alumno = alumno,
-                                            Nota = (float) (5 * new Random().NextDouble())
-                                        };
-                curso.Evaluacions = listaEvaluaciones.ToList();
+                foreach (var asignatura in curso.Asignaturas)
+                {
+                    foreach (var alumno in curso.Alumnos)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            int numeroEvaluacion = 0;
+                            var evaluacion = new Evaluacion()
+                            {
+                                Nombre = $"{asignatura.Nombre}_Evaluacion_{numeroEvaluacion++}",
+                                Asignatura = asignatura,
+                                Alumno = alumno,
+                                Nota = (float)(5 * new Random().NextDouble())
+                            };
+                            alumno.Evaluacions.Add(evaluacion);
+                        }
+                    }
+                }
             }
         }
 
@@ -63,7 +70,7 @@ namespace CoreEscuela
                                from n2 in nombre2
                                from a in apellido1
                                select new Alumno { Nombre = $"{n1} {n2} {a}" };
-            return listaAlumnos.OrderBy(alumno => alumno.AlumnoID).Take(cantidad).ToList();
+            return listaAlumnos.OrderBy(alumno => alumno.UniqueId).Take(cantidad).ToList();
         }
 
         private void CargarCursos()
@@ -80,6 +87,11 @@ namespace CoreEscuela
             {
                 Curso.Alumnos = GenerarAlumnos(new Random().Next(5, 20));
             }
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetoEscuela(){
+            var listaObjetos = new List<ObjetoEscuelaBase>();
+            return listaObjetos;
         }
     }
 }

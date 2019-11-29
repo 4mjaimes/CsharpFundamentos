@@ -19,7 +19,7 @@ namespace CoreEscuela
             if (Escuela?.Cursos != null)
                 foreach (var Curso in Escuela.Cursos)
                 {
-                    Console.WriteLine($"Nombre {Curso.Nombre} - ID {Curso.CursoId}");
+                    Console.WriteLine($"Nombre {Curso.Nombre} - ID {Curso.UniqueId}");
                 }
         }
     }

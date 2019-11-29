@@ -4,15 +4,15 @@ namespace CoreEscuela.Util
 {
     public static class Printer
     {
-        public static void DibujarLinea(int length = 10)
+        public static void DrawLine(int length = 10)
         {
             WriteLine("".PadLeft(length, '='));
         }
         public static void EscribirTitulo(string pTitulo)
         {
-            DibujarLinea(pTitulo.Length);
+            DrawLine(pTitulo.Length);
             WriteLine(pTitulo);
-            DibujarLinea(pTitulo.Length);
+            DrawLine(pTitulo.Length);
 
         }
     }

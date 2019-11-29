@@ -2,10 +2,8 @@ using System;
 
 namespace CoreEscuela.Entities
 {
-    public class Asignatura
+    public class Asignatura : ObjetoEscuelaBase
     {
-        public string AsignaturaID { get; private set; }
-        public string Nombre { get; set; }
-        public Asignatura() => AsignaturaID = Guid.NewGuid().ToString();
+
     }
 }
